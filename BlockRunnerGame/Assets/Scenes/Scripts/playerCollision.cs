@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class playerCollision : MonoBehaviour
-
+    
 
 {
 
@@ -19,6 +19,8 @@ public class playerCollision : MonoBehaviour
             FindObjectOfType<gameManager>().EndGame();
             
         }
+
+       
 
 
 

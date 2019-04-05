@@ -4,10 +4,17 @@ public class playerMovement : MonoBehaviour
 {
 
     public Rigidbody rb_player;
+    public playerCollision playerCollision;
 
     public float forwardForce = 500f;
     public float sidewaysForce = 100f;
-    
+
+
+    public CharacterController controller;
+    private float canJump = 0f;
+
+    Vector3 velocity;
+    float jumpSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -42,13 +49,28 @@ public class playerMovement : MonoBehaviour
         }
 
 
+
+
         if (rb_player.position.y < -1f)
         {
             FindObjectOfType<gameManager>().EndGame();
+            
 
 
         }
 
+
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > canJump)
+        {
+
+            velocity = rb_player.velocity;
+            velocity.y = jumpSpeed;
+            rb_player.velocity = velocity;
+            canJump = Time.time + 1.5f;    // whatever time a jump takes
+            rb_player.AddForce(Vector3.up * 1000);
+        }
 
 
     }
@@ -59,6 +81,18 @@ public class playerMovement : MonoBehaviour
 
 
     }
+
+
+    void keyManager()
+    {
+
+
+
+
+
+
+    }
+
 
 
 

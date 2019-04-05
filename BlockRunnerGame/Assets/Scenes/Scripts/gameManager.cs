@@ -9,6 +9,7 @@ public class gameManager : MonoBehaviour
     public float restartDelay = 2f;
 
     public GameObject WinPanelUI;
+    public Score score;
 
 
     public void EndGame ()
@@ -21,7 +22,8 @@ public class gameManager : MonoBehaviour
             gameHasEnded = true;
             Debug.Log("Game over");
             Invoke("Restart", restartDelay);
-
+            //score.countScore = false;
+            FindObjectOfType<Score>().countScore = false;
 
         }
 
@@ -36,7 +38,7 @@ public class gameManager : MonoBehaviour
 
         WinPanelUI.SetActive(true);
         Debug.Log("1");
-
+        FindObjectOfType<Score>().countScore = false;
 
     }
 
