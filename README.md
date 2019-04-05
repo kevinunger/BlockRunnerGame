@@ -1,2 +1,2 @@
 # BlockRunnerGame
-Simple Unity Game
+Simple obstacle avoidance game made with unity
