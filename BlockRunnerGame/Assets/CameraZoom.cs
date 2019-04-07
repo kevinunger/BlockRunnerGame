@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
 {
+    
     int zoom = 20;
     int normal = 60;
     float smooth = 5;
 
-    private bool isZoomed = false;
+
 
     public playerMovement playerMovement;
 
 
-
+    /*
 
     void Update()
     {
 
         /* if (Input.GetKey("s")) {
              isZoomed = !isZoomed;
-         }*/
+         }
 
         if (FindObjectOfType<playerMovement>().gettingBack == true)
         {
@@ -45,6 +46,6 @@ public class CameraZoom : MonoBehaviour
             FindObjectOfType<playerMovement>().gettingBack = false;
         }
 
-
+*/
     }
 

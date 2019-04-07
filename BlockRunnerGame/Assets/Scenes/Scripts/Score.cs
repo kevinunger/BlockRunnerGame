@@ -11,14 +11,6 @@ public class Score : MonoBehaviour
 
     void Update ()
     {
-     //   if (countScore == true)
-     //   {
-
-
-            
-
-
-
 
         if (countScore == false)
         {

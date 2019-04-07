@@ -3,6 +3,13 @@
 public class playerMovement : MonoBehaviour
 {
 
+    private string backKey = "s"; private bool backKeydown;
+    private string leftKey = "a"; private bool leftKeydown;
+    private string rightKey = "d";private bool rightKeydown;
+
+
+
+
     public Rigidbody rb_player;
     public playerCollision playerCollision;
 
@@ -32,43 +39,23 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()                                    // FixUpdate für physics
     {
+
+
+
         rb_player.AddForce(0, 0, forwardForce * Time.deltaTime); // Time.deltaTime Zeit: zeit seit letztem frame 
-
-
-
-        if (Input.GetKey("d")) {
-
-            rb_player.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
-            
-
-
+                     
+        if (rightKeydown)
+        {
+            rb_player.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            rightKeydown = false;
         }
 
-        if (Input.GetKey("a"))
+        if (leftKeydown)
         {
-
             rb_player.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-
-
-
+            leftKeydown = false;
         }
-
-
-
-
-
-
-        if (rb_player.position.y < -1f)
-        {
-            FindObjectOfType<gameManager>().EndGame();
-            
-
-
-        }
-
-
         
-
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > canJump)
         {
 
@@ -78,18 +65,18 @@ public class playerMovement : MonoBehaviour
             canJump = Time.time + 1.5f;    // whatever time a jump takes
             rb_player.AddForce(Vector3.up * 1000);
         }
-        
-        
-        if (Input.GetKeyDown("s") && Time.time > canBack && gettingBack == false)
+
+
+        if (backKeydown && Time.time > canBack && gettingBack == false)
         {
-            gettingBack = true; 
+            gettingBack = true;
             velocityZ = rb_player.velocity;
             velocityZ.z = backSpeed;
             rb_player.velocity = velocityZ;
-            canBack = Time.time + 2f;    // whatever time a jump takes
-            //rb_player.AddForce(Vector3.back);
-           // forwardForce = 2000f;
-            Debug.Log(velocityZ.z);
+            canBack = Time.time + 2f;                        // whatever time a jump takes
+            backKeydown = false;                             //rb_player.AddForce(Vector3.back);
+                                                             // forwardForce = 2000f;
+                                                             // Debug.Log(velocityZ.z);
 
         }
 
@@ -100,22 +87,39 @@ public class playerMovement : MonoBehaviour
         else
         {
 
-         //  forwardForce = 8000f;
+            //  forwardForce = 8000f;
             //gettingBack = false;
-         //   Debug.Log(forwardForce);
-            
+            //   Debug.Log(forwardForce);
+
 
         }
 
 
-        Debug.Log(gettingBack);
+        //Debug.Log(rb_player.velocity.z);
 
+
+
+        if (rb_player.position.y < -3f)
+        {
+            FindObjectOfType<gameManager>().EndGame();
+        }
+        
     }
 
-    void Update()
+void Update()
     {
 
 
+        if (Input.GetKeyDown(backKey))
+        { backKeydown = true; }
+
+        if (Input.GetKey(leftKey))
+        { leftKeydown = true; }
+
+        if (Input.GetKey(rightKey))
+        { rightKeydown = true; }
+
+        //Debug.Log(rb_player.transform.position);
 
     }
 
