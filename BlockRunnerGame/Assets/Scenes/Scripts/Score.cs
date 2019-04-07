@@ -15,15 +15,14 @@ public class Score : MonoBehaviour
         if (countScore == false)
         {
             Debug.Log("Stop Score!");
-
-
-
+            PlayerPrefs.SetFloat("Player Score", player.transform.position.z);
         }
 
         else {
 
 
             scoreText.text = player.position.z.ToString("0");
+            
 
 
         }

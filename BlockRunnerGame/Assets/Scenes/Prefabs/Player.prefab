@@ -123,8 +123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb_player: {fileID: 3481078013711477251}
-  forwardForce: 8000
+  playerCollision: {fileID: 0}
+  forwardForce: 12000
   sidewaysForce: 120
+  controller: {fileID: 0}
+  gettingBack: 0
 --- !u!114 &3481078013711477261
 MonoBehaviour:
   m_ObjectHideFlags: 0
