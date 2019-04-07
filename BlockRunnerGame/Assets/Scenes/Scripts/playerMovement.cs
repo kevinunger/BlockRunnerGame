@@ -6,15 +6,20 @@ public class playerMovement : MonoBehaviour
     public Rigidbody rb_player;
     public playerCollision playerCollision;
 
-    public float forwardForce = 500f;
-    public float sidewaysForce = 100f;
+    public float forwardForce = 8000f; //8000
+    public float sidewaysForce = 120f;
 
 
     public CharacterController controller;
     private float canJump = 0f;
+    private float canBack = 0f;
 
-    Vector3 velocity;
+    Vector3 velocityY;
+    Vector3 velocityZ;
     float jumpSpeed;
+    float backSpeed;
+
+    public bool gettingBack = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +56,8 @@ public class playerMovement : MonoBehaviour
 
 
 
+
+
         if (rb_player.position.y < -1f)
         {
             FindObjectOfType<gameManager>().EndGame();
@@ -60,18 +67,48 @@ public class playerMovement : MonoBehaviour
         }
 
 
-
+        
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > canJump)
         {
 
-            velocity = rb_player.velocity;
-            velocity.y = jumpSpeed;
-            rb_player.velocity = velocity;
+            velocityY = rb_player.velocity;
+            velocityY.y = jumpSpeed;
+            rb_player.velocity = velocityY;
             canJump = Time.time + 1.5f;    // whatever time a jump takes
             rb_player.AddForce(Vector3.up * 1000);
         }
+        
+        
+        if (Input.GetKeyDown("s") && Time.time > canBack && gettingBack == false)
+        {
+            gettingBack = true; 
+            velocityZ = rb_player.velocity;
+            velocityZ.z = backSpeed;
+            rb_player.velocity = velocityZ;
+            canBack = Time.time + 2f;    // whatever time a jump takes
+            //rb_player.AddForce(Vector3.back);
+           // forwardForce = 2000f;
+            Debug.Log(velocityZ.z);
 
+        }
+
+
+
+
+
+        else
+        {
+
+         //  forwardForce = 8000f;
+            //gettingBack = false;
+         //   Debug.Log(forwardForce);
+            
+
+        }
+
+
+        Debug.Log(gettingBack);
 
     }
 
