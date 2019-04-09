@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class playerMovement : MonoBehaviour
 {
+
+
+
+
+
+
 
     private string backKey = "s"; private bool backKeyDown;
     private string leftKey = "a"; private bool leftKeyDown;
@@ -11,15 +18,15 @@ public class playerMovement : MonoBehaviour
 
 
 
-    private float canJump = 0f;
-    private float jumpFrequency = 1.5f;
+    public float canJump = 0f;
+    public float jumpFrequency = 1.5f;
     public float jumpPower = 1000;
 
     public Rigidbody rb_player;
 
     public playerCollision playerCollision;
 
-    public float forwardForce = 6000f; //8000
+    public float forwardForce = 1000 ; //8000
     public float sidewaysForce = 120f;
 
 
@@ -37,8 +44,11 @@ public class playerMovement : MonoBehaviour
     float jumpSpeed;
     float backSpeed;
 
-   
-   
+    // public GameObject JumpBar;
+    public Slider JumpBar;
+
+
+
 
 
     public bool gettingBack = false;
@@ -48,13 +58,21 @@ public class playerMovement : MonoBehaviour
 
     //Debug
 
-        
 
 
-    // Start is called before the first frame update
+
+
+// Start is called before the first frame update
     void Start()
     {
+        JumpBar = GameObject.Find("JumpBar").GetComponent<Slider>();
+        //
+        //Time.timeScale = 0.1F;
+        //
         rb_player.useGravity = true;
+       if (JumpBar != null) { Debug.Log(JumpBar.name); }
+
+
 
         // Debug.Log("Hello World");
         //rb_player.AddForce(0, 200, 500);
@@ -66,7 +84,7 @@ public class playerMovement : MonoBehaviour
     void FixedUpdate()                                    // FixUpdate für physics
     {
 
-
+        
 
         rb_player.AddForce(0, 0, forwardForce * Time.deltaTime); // Time.deltaTime Zeit: zeit seit letztem frame 
                      
@@ -81,33 +99,50 @@ public class playerMovement : MonoBehaviour
             rb_player.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
             leftKeyDown = false;
         }
+
+        /*   if (Input.GetKeyDown(KeyCode.Space) && Time.time > canJump)
+           {
+
+               velocityY = rb_player.velocity;
+               velocityY.y = jumpSpeed;
+               rb_player.velocity = velocityY;
+               canJump = Time.time + jumpFrequency;    // whatever time a jump takes
+               rb_player.AddForce(Vector3.up * 1000);
+           }
+           */
+
+        Debug.Log("canJump: "+  canJump);
         
-     /*   if (Input.GetKeyDown(KeyCode.Space) && Time.time > canJump)
-        {
+        Debug.Log("Time.time:" + Time.time);
 
-            velocityY = rb_player.velocity;
-            velocityY.y = jumpSpeed;
-            rb_player.velocity = velocityY;
-            canJump = Time.time + jumpFrequency;    // whatever time a jump takes
-            rb_player.AddForce(Vector3.up * 1000);
-        }
-        */
-        if (jumpKeyDown && Time.time > canJump )
-        {
+        Debug.Log("DIFF: " +(jumpFrequency - (canJump - Time.time))/jumpFrequency );
 
+
+        
+            if (jumpKeyDown && Time.time > canJump )
+        {
+            
+            JumpBar.value = 0;
             velocityY = rb_player.velocity;
             velocityY.y = jumpSpeed; //jumpSpeed
             rb_player.velocity = velocityY;
             canJump = Time.time + jumpFrequency;    // whatever time a jump takes
             rb_player.AddForce(Vector3.up * jumpPower);
             jumpKeyDown = false;
+
         }
+
+        
+
         else
         {
             jumpKeyDown = false;
+            
+
         }
 
 
+        
 
 
 
@@ -126,24 +161,6 @@ public class playerMovement : MonoBehaviour
         }
 
 
-
-
-
-        else
-        {
-
-            //  forwardForce = 8000f;
-            //gettingBack = false;
-            //   Debug.Log(forwardForce);
-
-
-        }
-
-
-        //Debug.Log(rb_player.velocity.z);
-
-
-
         if (rb_player.position.y < -3f)
         {
             FindObjectOfType<gameManager>().CompleteLevel();
@@ -153,6 +170,7 @@ public class playerMovement : MonoBehaviour
 
 void Update()
     {
+
 
         //DEBUG
         speedText.text = rb_player.velocity.z.ToString("0");
@@ -171,10 +189,13 @@ void Update()
 
 
         if (Input.GetKeyDown(KeyCode.Space))
-        { jumpKeyDown = true;
-            //Debug.Log("jumpKey");
-           
-        }
+        { jumpKeyDown = true;  }
+
+
+
+
+        JumpBar.value += 0.01F;
+            //jumpFrequency - (canJump - Time.time) / jumpFrequency;
 
 
     }

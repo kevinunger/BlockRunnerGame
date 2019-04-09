@@ -41,8 +41,8 @@ public class Score : MonoBehaviour
             
             score = player.position.z + coinScore;
 
-            Debug.Log(score);
-            Debug.Log(player.position.z);
+
+           
             scoreText.text = score.ToString("0");
 
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4032443566201913382}
   - component: {fileID: 4032443566201913383}
   - component: {fileID: 4032443566201913379}
+  - component: {fileID: 841708723139170101}
   - component: {fileID: 4032443566201913378}
   - component: {fileID: 4032443566201913389}
   - component: {fileID: 4032443566201913391}
@@ -112,6 +113,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &841708723139170101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032443566201913380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43309a6f9519a9b489b29ac300d8d9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barDisplay: 0
+  pos: {x: 20, y: 40}
+  size: {x: 60, y: 20}
+  emptyTex: {fileID: 0}
+  fullTex: {fileID: 0}
 --- !u!114 &4032443566201913378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,11 +142,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3f9133a9cd1d84bb0b16b0d5ca108c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canJump: 0
+  jumpFrequency: 1.5
+  jumpPower: 1000
   rb_player: {fileID: 4032443566201913379}
   playerCollision: {fileID: 4032443566201913389}
-  forwardForce: 4000
+  forwardForce: 8000
   sidewaysForce: 120
   controller: {fileID: 0}
+  JumpBar: {fileID: 0}
   gettingBack: 0
   speedText: {fileID: 0}
 --- !u!114 &4032443566201913389

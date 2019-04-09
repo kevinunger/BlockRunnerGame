@@ -191,30 +191,65 @@ public class BlockSpawner : MonoBehaviour
         }
     }
 
-        /*
+    public float SpawnPowerUpIntervall;
 
-            IEnumerator DestroyDelayed()
+    IEnumerator SpawnPowerUp()
+    {
+        
 
+
+        while (true)
+        {
+            yield return new WaitForSeconds(SpawnPowerUpIntervall);
+
+            Vector3 playerPos = player.transform.position;
+            //Vector3 playerDirection = player.transform.forward;
+            // Quaternion playerRotation = player.transform.rotation;
+            Quaternion coinRot = new Quaternion(0, -90, 0, 0);
+
+            //transform.rotation = Quaternion.Euler(transform.rotation.x + xRotation, transform.rotation.y, transform.rotation.z);
+
+            Vector3 spawnPos = new Vector3(Random.Range(-7, 7), 1.25F, player.transform.position.z + 300f);
+
+            Quaternion rotZero = Quaternion.identity;
+            coinRot.eulerAngles = new Vector3(90, 0, 0);
+
+            cloneCoin = Instantiate(Coin, spawnPos, coinRot);
+
+            //Debug.Log("COIN SPAWNED");
+
+            Destroy(cloneCoin, 15);
+
+
+
+
+        }
+    }
+
+    /*
+
+        IEnumerator DestroyDelayed()
+
+        {
+            while (true)
             {
-                while (true)
+                yield return new WaitForSeconds(2f);
+
+                if (clone != null && obstacleCount > 3)
                 {
-                    yield return new WaitForSeconds(2f);
-
-                    if (clone != null && obstacleCount > 3)
-                    {
-                        Destroy(clone);
-                        obstacleCount--;
-                    }
-
-                    clone = null;
-
-
-                    Debug.Log("Destroy");
+                    Destroy(clone);
+                    obstacleCount--;
                 }
 
+                clone = null;
+
+
+                Debug.Log("Destroy");
             }
 
+        }
 
-            */
 
-    }
+        */
+
+}
