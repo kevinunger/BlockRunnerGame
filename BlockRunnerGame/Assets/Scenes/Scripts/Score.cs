@@ -7,7 +7,7 @@ public class Score : MonoBehaviour
     public Text scoreText;
 
     public float score = 0;
-    public float coinScore = 0;
+    public int coinScore = 0;
     public bool countScore = true;
     public bool gotCoin;
 
