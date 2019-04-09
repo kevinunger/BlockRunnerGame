@@ -11,6 +11,8 @@ public class gameManager : MonoBehaviour
     public GameObject WinPanelUI;
     public Score score;
 
+    public Transform player;
+
 
     public void EndGame ()
     {
@@ -45,8 +47,6 @@ public class gameManager : MonoBehaviour
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-
 
 
 

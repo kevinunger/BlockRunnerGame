@@ -16,9 +16,19 @@ public class playerCollision : MonoBehaviour
 
 
             movement.enabled = false;
-            FindObjectOfType<gameManager>().EndGame();
+            FindObjectOfType<gameManager>().CompleteLevel();
+            }
+        if (collisionInfo.collider.tag == "Coin")
+            {
             
-        }
+            Destroy(collisionInfo.gameObject);
+            FindObjectOfType<Score>().gotCoin = true;
+
+            }
+            
+        
+
+
 
        
 

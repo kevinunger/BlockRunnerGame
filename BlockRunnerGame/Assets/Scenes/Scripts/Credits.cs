@@ -6,12 +6,17 @@ public class Credits : MonoBehaviour
 {
     public Text finalScoreText;
     public float finalScore;
+  
+
+    public void Start()
+    {
+        Score();
+    }
 
     public void Score()
     {
-        finalScore = PlayerPrefs.GetFloat("Player Score");
-        //finalScoreText.text = finalScore.ToString("0");
-        finalScoreText.text = "100";
+        finalScore = PlayerPrefs.GetFloat("FinalScore");
+        finalScoreText.text = finalScore.ToString("0");
     }
 
 

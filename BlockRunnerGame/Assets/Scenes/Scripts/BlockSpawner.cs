@@ -12,7 +12,13 @@ public class BlockSpawner : MonoBehaviour
     
    // public GameObject Ramp;
     public GameObject Obstacle;
+    public GameObject Coin;
+    public GameObject cloneCoin;
     private GameObject clone = null;
+    private GameObject cloneGround;
+    public GameObject Ground; 
+
+
     public int obstacleCount = 0;
 
 
@@ -23,12 +29,16 @@ public class BlockSpawner : MonoBehaviour
     public float spawnZ;
 
     public float difficulty;
-    public float spawnIntervall = 2;
+    public float spawnObstacleIntervall = 2;
+    public float spawnCoinIntervall = 2;
 
     public float b;
-    
 
 
+
+    public float spawnIntervallGround;
+    public float cloneGroundPosZ;
+    public int groundSizeOffset;
     //float spawnDistance = 10;
 
 
@@ -41,8 +51,13 @@ public class BlockSpawner : MonoBehaviour
     {
         //Invoke("SpawnObstacle", 1);
         //StartCoroutine(DestroyDelayed());
-        spawnIntervall = 5F;
+        spawnObstacleIntervall = 5F;
+        spawnCoinIntervall = 1F;
+        groundSizeOffset = 400;
+        cloneGroundPosZ = 0;
         StartCoroutine(SpawnObstacle());
+        StartCoroutine(SpawnGround());
+        StartCoroutine(SpawnCoin());
 
 
     }
@@ -58,30 +73,58 @@ public class BlockSpawner : MonoBehaviour
         if (difficulty > 100)
         {
             b = Mathf.Pow(difficulty, -0.525F);
-            spawnIntervall = b * 33.87F;
+            spawnObstacleIntervall = b * 33.87F;
         }
-        
 
-        Debug.Log("Difficulty: " + difficulty.ToString("0"));
-        Debug.Log("spawnIntervall: "+ spawnIntervall.ToString("0"));
+        spawnCoinIntervall = Random.Range(-0.1F, 2);
+
+        //Debug.Log("Difficulty: " + difficulty.ToString("0"));
+        //Debug.Log("spawnIntervall: "+ spawnIntervall.ToString("0"));
+
+
+
+
+
+
+
     }
 
-    void SSpawnObstacle()
+    IEnumerator SpawnGround()
     {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            
+            Quaternion rotZero = Quaternion.identity;
 
-        Vector3 playerPos = player.transform.position;
-        Vector3 playerDirection = player.transform.forward;
-        Quaternion playerRotation = player.transform.rotation;
-        Quaternion rotZero = Quaternion.identity;
 
 
-        Vector3 spawnPos = playerPos + playerDirection * spawnDistance;
+            float spawnZGround = player.transform.position.z + groundSizeOffset;
 
-        spawned = true;
+
+
+
+            Vector3 spawnPosGround = new Vector3(0, 0, spawnZGround);
+            
+            if ((spawnZGround -  cloneGroundPosZ) > groundSizeOffset)
+            {
+                //Debug.Log("SpawnGROUND");
+                
+                cloneGround = Instantiate(Ground, spawnPosGround, rotZero);
+                cloneGroundPosZ = spawnZGround;
+                
+            }
+
+            //Debug.Log(cloneGround.transform.position.z);
+            if (((cloneGround.transform.position.z-200) - player.transform.position.z) < 0)
+            {
+                Destroy(cloneGround,15);
+            }
+
+        }
 
 
     }
-
 
 
     IEnumerator SpawnObstacle()
@@ -89,13 +132,13 @@ public class BlockSpawner : MonoBehaviour
         while (true)
         {
 
-            Debug.Log("Spawn");
+          //  Debug.Log("Spawn");
 
-            yield return new WaitForSeconds(spawnIntervall);
+            yield return new WaitForSeconds(spawnObstacleIntervall);
 
 
             Vector3 playerPos = player.transform.position;
-            Vector3 playerDirection = player.transform.forward;
+            //Vector3 playerDirection = player.transform.forward;
             Quaternion playerRotation = player.transform.rotation;
             Quaternion rotZero = Quaternion.identity;
 
@@ -111,35 +154,67 @@ public class BlockSpawner : MonoBehaviour
 
             obstacleCount++;
 
-            Destroy(clone, 12);
+            Destroy(clone,15);
 
         }
     }
 
-/*
 
-    IEnumerator DestroyDelayed()
 
+    IEnumerator SpawnCoin()
     {
         while (true)
         {
-            yield return new WaitForSeconds(2f);
-            
-            if (clone != null && obstacleCount > 3)
-            {
-                Destroy(clone);
-                obstacleCount--;
-            }
+            yield return new WaitForSeconds(spawnCoinIntervall);
 
-            clone = null;
-           
+            Vector3 playerPos = player.transform.position;
+            //Vector3 playerDirection = player.transform.forward;
+           // Quaternion playerRotation = player.transform.rotation;
+           Quaternion coinRot = new Quaternion(0,-90,0,0);
 
-            Debug.Log("Destroy");
+            //transform.rotation = Quaternion.Euler(transform.rotation.x + xRotation, transform.rotation.y, transform.rotation.z);
+
+            Vector3 spawnPos = new Vector3(Random.Range(-7, 7), 1.25F, player.transform.position.z + 300f);
+
+            Quaternion rotZero = Quaternion.identity;
+            coinRot.eulerAngles = new Vector3(90, 0, 0);
+
+            cloneCoin = Instantiate(Coin, spawnPos, coinRot);
+
+            //Debug.Log("COIN SPAWNED");
+
+            Destroy(cloneCoin, 15);
+
+
+
+
         }
-        
     }
 
+        /*
 
-    */
+            IEnumerator DestroyDelayed()
 
-}
+            {
+                while (true)
+                {
+                    yield return new WaitForSeconds(2f);
+
+                    if (clone != null && obstacleCount > 3)
+                    {
+                        Destroy(clone);
+                        obstacleCount--;
+                    }
+
+                    clone = null;
+
+
+                    Debug.Log("Destroy");
+                }
+
+            }
+
+
+            */
+
+    }
