@@ -5,18 +5,23 @@ public class Score : MonoBehaviour
 {
     public Transform player;
     public Text scoreText;
-    public float scorePos = 0;
+
     public float score = 0;
+    public float coinScore = 0;
     public bool countScore = true;
     public bool gotCoin;
-    
+
+    public float distance;
 
     void Update ()
     {
 
+
+
         if (gotCoin)
         {
-            score += 100;
+
+            coinScore += 100;
             gotCoin = false;
 
         }
@@ -33,8 +38,9 @@ public class Score : MonoBehaviour
         }
 
         else {
+            
+            score = player.position.z + coinScore;
 
-            scorePos = player.position.z;
             Debug.Log(score);
             Debug.Log(player.position.z);
             scoreText.text = score.ToString("0");

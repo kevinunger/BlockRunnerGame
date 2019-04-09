@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4216837790752118841}
   - component: {fileID: 4216837790752118840}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasScene1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,6 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   scoreText: {fileID: 4216837791943047693}
+  score: 0
+  coinScore: 0
+  countScore: 1
+  gotCoin: 0
+  distance: 0
 --- !u!1 &4216837792152111444
 GameObject:
   m_ObjectHideFlags: 0
