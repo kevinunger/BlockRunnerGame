@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 347491381}
   - component: {fileID: 347491383}
   m_Layer: 5
-  m_Name: scoreText
+  m_Name: finalScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64ed91a2b6941a4bb004aad7b265230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalScoreText: {fileID: 1115791676}
+  finalScoreText: {fileID: 347491381}
   finalScore: 0
 --- !u!1 &761918402
 GameObject:
