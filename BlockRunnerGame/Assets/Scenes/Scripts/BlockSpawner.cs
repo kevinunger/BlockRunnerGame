@@ -9,8 +9,9 @@ public class BlockSpawner : MonoBehaviour
 
     public Transform player;
     public playerMovement playerMovement;
-    
-   // public GameObject Ramp;
+
+    //public GameObject Ramp;
+
     public GameObject Obstacle;
     public GameObject Coin;
     public GameObject cloneCoin;
@@ -47,6 +48,13 @@ public class BlockSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     private bool spawned = false;
 
+
+    public GameObject[] Obstacles;
+
+
+   
+
+
     void Start()
     {
         //Invoke("SpawnObstacle", 1);
@@ -58,6 +66,14 @@ public class BlockSpawner : MonoBehaviour
         StartCoroutine(SpawnObstacle());
         StartCoroutine(SpawnGround());
         StartCoroutine(SpawnCoin());
+
+
+        Obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+
+        Debug.Log(Obstacles[1].name);
+       
+
+
 
 
     }
@@ -137,22 +153,38 @@ public class BlockSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnObstacleIntervall);
 
 
+            //Get random Obstacle from Array
+
+
+
+            Obstacle = Obstacles[Random.Range(0, Obstacles.Length-1)];
+
+
+      
             Vector3 playerPos = player.transform.position;
             //Vector3 playerDirection = player.transform.forward;
             Quaternion playerRotation = player.transform.rotation;
             Quaternion rotZero = Quaternion.identity;
 
+            spawnX = Random.Range(-7.5F + Obstacle.transform.lossyScale.x * 0.5F, 7.5F - Obstacle.transform.lossyScale.x * 0.5F);       //Ändern
 
-            spawnZ = player.transform.position.z + 350f;
+            
 
-            spawnX = Random.Range(-7, 7);
+            spawnY = Obstacle.transform.lossyScale.y * 0.5F + 0.5F;
+                    
+            spawnZ = player.transform.position.z + 350;
 
-            Vector3 spawnPos = new Vector3(spawnX, 1, spawnZ);
+
+
+
+
+
+            Vector3 spawnPos = new Vector3(spawnX, spawnY, spawnZ);
 
 
             clone = Instantiate(Obstacle, spawnPos, rotZero);
 
-            obstacleCount++;
+
 
             Destroy(clone,15);
 

@@ -70,7 +70,7 @@ public class playerMovement : MonoBehaviour
         //Time.timeScale = 0.1F;
         //
         rb_player.useGravity = true;
-       if (JumpBar != null) { Debug.Log(JumpBar.name); }
+
 
 
 
@@ -111,11 +111,11 @@ public class playerMovement : MonoBehaviour
            }
            */
 
-        Debug.Log("canJump: "+  canJump);
+  //      Debug.Log("canJump: "+  canJump);
         
-        Debug.Log("Time.time:" + Time.time);
+   //     Debug.Log("Time.time:" + Time.time);
 
-        Debug.Log("DIFF: " +(jumpFrequency - (canJump - Time.time))/jumpFrequency );
+   //     Debug.Log("DIFF: " +(jumpFrequency - (canJump - Time.time))/jumpFrequency );
 
 
         

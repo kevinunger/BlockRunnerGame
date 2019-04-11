@@ -7,6 +7,8 @@ public class Credits : MonoBehaviour
     public Text finalScoreText;
     public float finalScore;
 
+    
+
 
     public void Start()
     {
@@ -20,6 +22,10 @@ public class Credits : MonoBehaviour
 
         finalScore = PlayerPrefs.GetFloat("finalScore");               
         finalScoreText.text = finalScore.ToString("0");
+
+
+
+
     }
 
 
